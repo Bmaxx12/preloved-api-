@@ -1,33 +1,26 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
-
-# Ambil DATABASE_URL dari environment variable
-# Lokal: isi di .env
-# Railway: otomatis diisi oleh Railway
-DATABASE_URL = os.getenv("DATABASE_URL")
+# HAPUS load_dotenv() di sini!
+# Langsung ambil dari environment Railway
+DATABASE_URL = os.environ.get("DATABASE_URL")  # pakai os.environ, bukan os.getenv
 
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-# Tambah ini untuk handle koneksi Railway
 engine = create_engine(
     DATABASE_URL,
-    pool_pre_ping=True,        #
-    pool_recycle=300           
+    pool_pre_ping=True,
+    pool_recycle=300
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-
 def get_db():
-    """Dependency untuk mendapatkan koneksi database di setiap request"""
     db = SessionLocal()
     try:
         yield db
