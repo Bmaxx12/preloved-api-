@@ -3,9 +3,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 
-# HAPUS load_dotenv() di sini!
-# Langsung ambil dari environment Railway
-DATABASE_URL = os.environ.get("DATABASE_URL")  # pakai os.environ, bukan os.getenv
+# TIDAK ADA load_dotenv() di sini!
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
