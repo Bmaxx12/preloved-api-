@@ -28,7 +28,6 @@ app = FastAPI(
     ### 🤖 AI
     - **POST** `/ai/rekomendasi` → Rekomendasi barang serupa
     """,
-    version="1.0.0"
 )
 
 app.include_router(barang.router)
@@ -40,8 +39,7 @@ app.include_router(ai.router)
 @app.get("/", tags=["Root"])
 def root():
     return {
-        "message": "Selamat datang di Preloved API 🛍️",
-        "version": "1.0.0",
+        "message": "Preloved API - Platform jual beli barang preloved",
         "docs": "Buka /docs untuk dokumentasi lengkap",
         "endpoints": {
             "CRUD Barang": [
